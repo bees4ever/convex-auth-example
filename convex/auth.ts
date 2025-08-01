@@ -25,15 +25,7 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
       },
       profile: undefined,
     }),
-      Keycloak({
-      id: "keycloak",
-      name: "Keycloak",
-      wellKnown: "/.well-known/openid-configuration",
-      // you need to specify the keycloak realms path, i.e. https://keycloak.example.com/realms/master
-      issuer: `${process.env.KEYCLOAK_ISSUER}`,
-      clientSecret: `${process.env.KEYCLOAK_CLIENT_SECRET}`,
-      clientId: `${process.env.KEYCLOAK_CLIENT_ID}`,
-    }),
+     
     Resend({
       from: process.env.AUTH_EMAIL ?? "My App <onboarding@resend.dev>",
     }),
@@ -73,6 +65,14 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
     // This one only makes sense with routing, ignore for now:
     Password({ id: "password-link", verify: Resend }),
     Anonymous,
-
+    Keycloak({
+      id: "keycloak",
+      name: "Keycloak",
+      wellKnown: "/.well-known/openid-configuration",
+      // you need to specify the keycloak realms path, i.e. https://keycloak.example.com/realms/master
+      issuer: `${process.env.KEYCLOAK_ISSUER}`,
+      clientSecret: `${process.env.KEYCLOAK_CLIENT_SECRET}`,
+      clientId: `${process.env.KEYCLOAK_CLIENT_ID}`,
+    }),
   ],
 });
